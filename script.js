@@ -312,7 +312,8 @@ function showGasEmergency(){
  };
  const c=copy[currentLang]||copy.ja, card=$("#resultCard");
  $("#questionCard").hidden=true; card.hidden=false;
- card.innerHTML='<p class="step-label">SAFETY FIRST</p><h3>'+c.title+'</h3><ol>'+c.items.map(x=>'<li>'+x+'</li>').join("")+'</ol><p><strong>'+c.note+'</strong></p><p><a href="https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/anzen_torikumi/file_jisyuhoan/study/fireaccident/gas_smell.html" target="_blank" rel="noopener noreferrer">'+c.src+' ↗</a></p><p><a href="https://www.gas.or.jp/anzen/gas-smell/" target="_blank" rel="noopener noreferrer">'+c.extra+' ↗</a></p><div class="result-actions"><button class="small-action" id="backToCategories">'+tr("back")+'</button></div>';
+ card.className="result-card result-card--emergency";
+ card.innerHTML='<div class="emergency-banner"><span class="emergency-label">SAFETY FIRST</span><h3>'+c.title+'</h3><p>'+c.items[0]+'</p></div><h4 class="result-section-title">'+(currentLang==="ja"?"安全確保の手順":"Safety steps")+'</h4><ol class="emergency-steps">'+c.items.slice(1).map(x=>'<li>'+x+'</li>').join("")+'</ol><div class="result-warning"><strong>'+c.note+'</strong></div><div class="result-source"><a href="https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/anzen_torikumi/file_jisyuhoan/study/fireaccident/gas_smell.html" target="_blank" rel="noopener noreferrer">'+c.src+' ↗</a><a href="https://www.gas.or.jp/anzen/gas-smell/" target="_blank" rel="noopener noreferrer">'+c.extra+' ↗</a></div><div class="result-actions"><button class="small-action" id="backToCategories">'+tr("back")+'</button></div>';
  $("#backToCategories").onclick=closeGuide;
 }
 
@@ -350,17 +351,15 @@ function showResult(){
   const selected=currentGuide.questions.map((q,i)=>`<li><b>${q.q[lang]||q.q.ja}</b><br>${q.a[selectedAnswers[i]].t[lang]||q.a[selectedAnswers[i]].t.ja}</li>`).join("");
   const tailored=[advice1,advice2].filter(Boolean).map((t,i)=>`<li>${t}</li>`).join("");
   $("#questionCard").hidden=true; card.hidden=false;
+  card.className="result-card result-card--guide";
   card.innerHTML=`
-    <p class="step-label">${tr("result")}</p>
-    <h3>${currentGuide.title[lang]||currentGuide.title.ja}</h3>
-    <h4>${tr("yourAnswers")}</h4>
-    <ul>${selected}</ul>
-    ${tailored ? `<h4>${tr("priorityActions")}</h4><ul>${tailored}</ul>` : ""}
-    <h4>${tr("first")}</h4><p>${r.first[lang]||r.first.ja}</p>
-    <h4>${tr("steps")}</h4><ul>${(r.steps[lang]||r.steps.ja).map(x=>`<li>${x}</li>`).join("")}</ul>
-    <h4>${tr("documents")}</h4><p>${r.docs[lang]||r.docs.ja}</p>
-    <h4>${tr("caution")}</h4><p>${r.caution[lang]||r.caution.ja}</p>
-    <p><a href="${r.source}" target="_blank" rel="noopener noreferrer">${(r.sourceLabel[lang]||r.sourceLabel.ja)} ↗</a></p>
+    <div class="result-lead"><p class="step-label">${tr("result")}</p><h3>${currentGuide.title[lang]||currentGuide.title.ja}</h3><div class="result-first"><span class="result-number">1</span><div><strong>${tr("first")}</strong><p>${r.first[lang]||r.first.ja}</p></div></div></div>
+    ${tailored ? `<section class="result-section result-section--priority"><h4>${tr("priorityActions")}</h4><ul class="priority-list">${tailored}</ul></section>` : ""}
+    <section class="result-section"><h4>${tr("steps")}</h4><ol class="step-list">${(r.steps[lang]||r.steps.ja).map(x=>`<li>${x}</li>`).join("")}</ol></section>
+    <section class="result-section result-section--documents"><h4>${tr("documents")}</h4><p>${r.docs[lang]||r.docs.ja}</p></section>
+    <section class="result-section result-section--caution"><h4>${tr("caution")}</h4><p>${r.caution[lang]||r.caution.ja}</p></section>
+    <details class="result-answers"><summary>${tr("yourAnswers")}</summary><ul>${selected}</ul></details>
+    <p class="result-source"><a href="${r.source}" target="_blank" rel="noopener noreferrer">${(r.sourceLabel[lang]||r.sourceLabel.ja)} ↗</a></p>
     <div class="result-actions"><button class="small-action" id="restartButton">${tr("restart")}</button><button class="small-action" id="backToCategories">${tr("back")}</button></div>`;
   $("#restartButton").onclick=()=>{currentStep=0;selectedAnswers=[];card.hidden=true;$("#questionCard").hidden=false;renderQuestion();};
   $("#backToCategories").onclick=closeGuide;
