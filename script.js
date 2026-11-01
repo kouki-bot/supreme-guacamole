@@ -391,3 +391,5 @@ $("#languageSelect").addEventListener("change",e=>{
 $("#backButton").addEventListener("click",closeGuide);
 $("#homeLink").addEventListener("click",e=>{e.preventDefault();closeGuide();window.scrollTo({top:0,behavior:"smooth"});});
 localize();
+const requestedTopic = new URLSearchParams(window.location.search).get("topic");
+if (requestedTopic && guides[requestedTopic]) openGuide(requestedTopic);
