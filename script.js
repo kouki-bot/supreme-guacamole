@@ -355,8 +355,7 @@ function showResult(){
     <h3>${currentGuide.title[lang]||currentGuide.title.ja}</h3>
     <h4>${tr("yourAnswers")}</h4>
     <ul>${selected}</ul>
-    <h4>${tr("priorityActions")}</h4>
-    <ul>${tailored}</ul>
+    ${tailored ? `<h4>${tr("priorityActions")}</h4><ul>${tailored}</ul>` : ""}
     <h4>${tr("first")}</h4><p>${r.first[lang]||r.first.ja}</p>
     <h4>${tr("steps")}</h4><ul>${(r.steps[lang]||r.steps.ja).map(x=>`<li>${x}</li>`).join("")}</ul>
     <h4>${tr("documents")}</h4><p>${r.docs[lang]||r.docs.ja}</p>
