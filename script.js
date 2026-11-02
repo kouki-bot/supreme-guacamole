@@ -390,6 +390,76 @@ $("#languageSelect").addEventListener("change",e=>{
 });
 $("#backButton").addEventListener("click",closeGuide);
 $("#homeLink").addEventListener("click",e=>{e.preventDefault();closeGuide();window.scrollTo({top:0,behavior:"smooth"});});
+
+/* くらしのナビ GA4 event tracking */
+(function(){
+  const track=(name,params={})=>{
+    if(typeof window.gtag==="function") window.gtag("event",name,params);
+  };
+
+  // カテゴリー選択・人気トピック選択
+  document.addEventListener("click",(event)=>{
+    const category=event.target.closest(".category-card");
+    if(category){
+      track("category_select",{
+        category_id:category.dataset.category||"unknown"
+      });
+      return;
+    }
+    const quick=event.target.closest("[data-quick]");
+    if(quick){
+      track("problem_select",{
+        problem_id:quick.dataset.quick||"unknown",
+        selection_method:"popular_topic"
+      });
+    }
+  },true);
+
+  // 質問への回答。回答文そのものは送らず、番号だけを記録
+  const answerBox=document.querySelector("#answerOptions");
+  if(answerBox){
+    answerBox.addEventListener("click",(event)=>{
+      const option=event.target.closest(".answer-option");
+      if(!option || !currentGuideId || !currentGuide) return;
+      const index=Array.prototype.indexOf.call(answerBox.children,option);
+      track("question_answer",{
+        problem_id:currentGuideId,
+        question_number:currentStep+1,
+        answer_number:index+1
+      });
+    },true);
+  }
+
+  // 言語切り替え
+  const language=document.querySelector("#languageSelect");
+  if(language){
+    language.addEventListener("change",()=>{
+      track("language_select",{language:language.value});
+    });
+  }
+
+  // ガイド開始・結果表示
+  const originalOpenGuide=openGuide;
+  openGuide=function(id){
+    track("guide_start",{problem_id:id});
+    return originalOpenGuide.apply(this,arguments);
+  };
+
+  const originalShowResult=showResult;
+  showResult=function(){
+    const id=currentGuideId;
+    originalShowResult.apply(this,arguments);
+    track("guide_complete",{problem_id:id});
+  };
+
+  // 緊急案内（ガス漏れ疑い）は通常ガイドと別イベントで記録
+  const originalEmergency=showGasEmergency;
+  showGasEmergency=function(){
+    originalEmergency.apply(this,arguments);
+    track("emergency_guidance_view",{problem_id:currentGuideId||"gasleak"});
+  };
+})();
+
 localize();
 const requestedTopic = new URLSearchParams(window.location.search).get("topic");
 if (requestedTopic && guides[requestedTopic]) openGuide(requestedTopic);
