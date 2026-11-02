@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://kouki-bot.github.io/supreme-guacamole/sitemap.xml
+Sitemap: https://kouki-bot.github.io/supreme-guacamole/sitemap.txt
