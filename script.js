@@ -397,23 +397,22 @@ $("#homeLink").addEventListener("click",e=>{e.preventDefault();closeGuide();wind
     if(typeof window.gtag==="function") window.gtag("event",name,params);
   };
 
-  // カテゴリー選択・人気トピック選択
-  document.addEventListener("click",(event)=>{
-    const category=event.target.closest(".category-card");
-    if(category){
+  // カテゴリー選択・困りごと選択（対象ボタンへ直接登録）
+  document.querySelectorAll(".category-card").forEach((button)=>{
+    button.addEventListener("click",()=>{
       track("category_select",{
-        category_id:category.dataset.category||"unknown"
+        category_id:button.dataset.category||"unknown"
       });
-      return;
-    }
-    const quick=event.target.closest("[data-quick]");
-    if(quick){
+    });
+  });
+  document.querySelectorAll("[data-quick]").forEach((button)=>{
+    button.addEventListener("click",()=>{
       track("problem_select",{
-        problem_id:quick.dataset.quick||"unknown",
+        problem_id:button.dataset.quick||"unknown",
         selection_method:"popular_topic"
       });
-    }
-  },true);
+    });
+  });
 
   // 質問への回答。回答文そのものは送らず、番号だけを記録
   const answerBox=document.querySelector("#answerOptions");
