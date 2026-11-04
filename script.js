@@ -405,14 +405,7 @@ $("#homeLink").addEventListener("click",e=>{e.preventDefault();closeGuide();wind
       });
     });
   });
-  document.querySelectorAll("[data-quick]").forEach((button)=>{
-    button.addEventListener("click",()=>{
-      track("problem_select",{
-        problem_id:button.dataset.quick||"unknown",
-        selection_method:"popular_topic"
-      });
-    });
-  });
+
 
   // 質問への回答。回答文そのものは送らず、番号だけを記録
   const answerBox=document.querySelector("#answerOptions");
@@ -440,6 +433,11 @@ $("#homeLink").addEventListener("click",e=>{e.preventDefault();closeGuide();wind
   // ガイド開始・結果表示
   const originalOpenGuide=openGuide;
   openGuide=function(id){
+    // すべての導線でガイドを開く直前に困りごと選択を記録
+    track("problem_select",{
+      problem_id:id,
+      selection_method:"guide_open"
+    });
     track("guide_start",{problem_id:id});
     return originalOpenGuide.apply(this,arguments);
   };
