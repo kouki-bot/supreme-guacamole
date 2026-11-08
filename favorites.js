@@ -42,7 +42,7 @@
     document.querySelector(".site-footer")?.before(section);
     const params=new URLSearchParams(location.search),topic=params.get("topic");
     if(topic&&titles[topic]){const target=document.querySelector('[data-quick="'+CSS.escape(topic)+'"]');if(target)target.click();}
-  }else{
+  }else if(path.startsWith("guide-")){
     const h1=document.querySelector("h1"),canonical=document.querySelector('link[rel="canonical"]')?.href||location.href;
     const id=path.replace(/^guide-/,"").replace(/\.html$/,"");
     if(h1&&id){const holder=document.createElement("div");holder.className="article-favorite";holder.appendChild(button(id,h1.textContent.trim(),canonical));h1.after(holder);}
