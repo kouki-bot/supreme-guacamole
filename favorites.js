@@ -37,10 +37,6 @@
   const path=location.pathname.split("/").pop()||"index.html";
   const home=path==="index.html"||path==="";
   if(home){
-    document.querySelectorAll(".popular-item[data-quick]").forEach(item=>{
-      const id=item.dataset.quick,title=item.querySelector("b")?.textContent||titles[id]||id;
-      item.appendChild(button(id,title,"index.html?topic="+encodeURIComponent(id)));
-    });
     const section=document.createElement("section");section.className="favorites-section section-wrap";section.id="favorites";
     section.innerHTML='<div class="favorites-heading"><div><p class="eyebrow">YOUR SAVED GUIDES</p><h2>お気に入り <small>（<span id="favoriteCount">0</span>）</small></h2></div><p>この端末・ブラウザに保存されます</p></div><p id="favoriteEmpty">まだ保存したガイドはありません。気になる困りごとの「お気に入りに保存」を押してください。</p><ul id="favoriteItems" class="favorite-items"></ul>';
     document.querySelector(".site-footer")?.before(section);
