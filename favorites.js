@@ -8,8 +8,9 @@
   };
   const save=(id,title,url)=>{
     const items=read().filter(x=>x.id!==id);
-    items.unshift({id,title:title||titles[id]||id,url:url||("index.html?topic="+encodeURIComponent(id)),savedAt:Date.now()});
-    return write(items.slice(0,30));
+    items.unshift({schemaVersion:1,id,title:title||titles[id]||id,url:url||("index.html?topic="+encodeURIComponent(id)),savedAt:Date.now()});
+    // 現段階では保存数を制限しない。将来のクラウド保存へ移行しやすい共通データ形式を維持する。
+    return write(items);
   };
   const remove=id=>write(read().filter(x=>x.id!==id));
   const button=(id,title,url)=>{
@@ -45,7 +46,7 @@
       item.appendChild(button(id,title,"index.html?topic="+encodeURIComponent(id)));
     });
     const section=document.createElement("section");section.className="favorites-section section-wrap";section.id="favorites";
-    section.innerHTML='<div class="favorites-heading"><div><p class="eyebrow">YOUR SAVED GUIDES</p><h2>お気に入り <small>（<span id="favoriteCount">0</span>）</small></h2></div><p>この端末・ブラウザに保存されます</p></div><p id="favoriteEmpty">まだ保存したガイドはありません。気になる困りごとの「お気に入りに保存」を押してください。</p><ul id="favoriteItems" class="favorite-items"></ul>';
+    section.innerHTML='<div class="favorites-heading"><div><p class="eyebrow">YOUR SAVED GUIDES</p><h2>お気に入り <small>（<span id="favoriteCount">0</span>）</small></h2></div><p>現在は無料で保存できます（この端末・ブラウザ内のみ）</p></div><p id="favoriteEmpty">まだ保存したガイドはありません。気になる困りごとの「お気に入りに保存」を押してください。</p><ul id="favoriteItems" class="favorite-items"></ul>';
     document.querySelector(".site-footer")?.before(section);
     const params=new URLSearchParams(location.search),topic=params.get("topic");
     if(topic&&titles[topic]){const target=document.querySelector('[data-quick="'+CSS.escape(topic)+'"]');if(target)target.click();}
