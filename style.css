@@ -40,3 +40,5 @@
 .result-warning{margin-top:16px;padding:15px;border-left:4px solid #b75b48;background:#fbefeb;border-radius:0 9px 9px 0;line-height:1.85;color:#663b34}
 .result-source a{display:inline-block;margin:0 14px 7px 0}
 @media(max-width:700px){.result-card--guide,.result-card--emergency{padding:16px;border-radius:14px}.result-first{padding:13px}.result-section{padding:14px}.step-list li{padding:11px 5px 11px 40px}.emergency-steps li{padding:12px 10px 12px 44px}.result-lead h3{font-size:21px}}
+
+.footer-links{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin:12px 0 18px}.footer-links a{color:var(--brown,#80664f);font-size:11px;text-decoration:underline;text-underline-offset:3px}.footer-links a:hover{opacity:.7}@media(max-width:600px){.footer-links{gap:12px}}
