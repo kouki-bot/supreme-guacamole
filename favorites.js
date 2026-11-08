@@ -46,7 +46,7 @@
       item.appendChild(button(id,title,"index.html?topic="+encodeURIComponent(id)));
     });
     const section=document.createElement("section");section.className="favorites-section section-wrap";section.id="favorites";
-    section.innerHTML='<div class="favorites-heading"><div><p class="eyebrow">YOUR SAVED GUIDES</p><h2>お気に入り <small>（<span id="favoriteCount">0</span>）</small></h2></div><p>現在は無料で保存できます（この端末・ブラウザ内のみ）</p></div><p id="favoriteEmpty">まだ保存したガイドはありません。気になる困りごとの「お気に入りに保存」を押してください。</p><ul id="favoriteItems" class="favorite-items"></ul>';
+    section.innerHTML='<div class="favorites-heading"><div><p class="eyebrow">YOUR SAVED GUIDES</p><h2>お気に入り <small>（<span id="favoriteCount">0</span>）</small></h2></div><p>無料で保存できます（この端末・ブラウザ内のみ）。端末変更やブラウザデータ削除で消える場合があります。</p></div><p id="favoriteEmpty">まだ保存したガイドはありません。気になる困りごとの「お気に入りに保存」を押してください。</p><ul id="favoriteItems" class="favorite-items"></ul>';
     document.querySelector(".site-footer")?.before(section);
     const params=new URLSearchParams(location.search),topic=params.get("topic");
     if(topic&&titles[topic]){const target=document.querySelector('[data-quick="'+CSS.escape(topic)+'"]');if(target)target.click();}
