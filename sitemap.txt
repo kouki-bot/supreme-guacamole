@@ -11,3 +11,4 @@ https://kouki-bot.github.io/supreme-guacamole/guide-subscription.html
 https://kouki-bot.github.io/supreme-guacamole/guide-moving.html
 https://kouki-bot.github.io/supreme-guacamole/guide-leak.html
 https://kouki-bot.github.io/supreme-guacamole/guide-gasstove.html
+https://kouki-bot.github.io/supreme-guacamole/privacy-policy.html
