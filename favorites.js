@@ -1,6 +1,7 @@
 (function(){
   "use strict";
   const KEY="kurashiNaviFavoritesV1";
+  const FREE_LIMIT=2;
   const read=()=>{try{const v=JSON.parse(localStorage.getItem(KEY)||"[]");return Array.isArray(v)?v:[]}catch(_){return[]}};
   const write=(items)=>{try{localStorage.setItem(KEY,JSON.stringify(items));return true}catch(_){return false}};
   const titles={
@@ -9,8 +10,8 @@
   const save=(id,title,url)=>{
     const items=read().filter(x=>x.id!==id);
     items.unshift({schemaVersion:1,id,title:title||titles[id]||id,url:url||("index.html?topic="+encodeURIComponent(id)),savedAt:Date.now()});
-    // 現段階では保存数を制限しない。将来のクラウド保存へ移行しやすい共通データ形式を維持する。
-    return write(items);
+    if(read().length>=FREE_LIMIT)return "limit";
+    return write(items)?"saved":"error";
   };
   const remove=id=>write(read().filter(x=>x.id!==id));
   const button=(id,title,url)=>{
@@ -32,7 +33,11 @@
   document.addEventListener("click",e=>{
     const b=e.target.closest("[data-favorite-id]");if(!b)return;e.preventDefault();e.stopPropagation();
     const id=b.dataset.favoriteId;const exists=read().some(x=>x.id===id);
-    if(exists)remove(id);else if(!save(id,b.dataset.favoriteTitle,b.dataset.favoriteUrl)){alert("保存できませんでした。ブラウザの設定をご確認ください。");}
+    if(exists){remove(id);}else{
+      const result=save(id,b.dataset.favoriteTitle,b.dataset.favoriteUrl);
+      if(result==="limit")alert("無料で保存できるのは2件までです。保存済みの項目を削除すると、新しい項目を保存できます。");
+      else if(result==="error")alert("保存できませんでした。ブラウザの設定をご確認ください。");
+    }
     refresh();
   },true);
   const path=location.pathname.split("/").pop()||"index.html";
@@ -46,7 +51,7 @@
       let url=id.startsWith("work-")?("guide-work-issues.html#"+id):("index.html?topic="+encodeURIComponent(id));if(id.startsWith("money-"))url="guide-money-issues.html#"+id;if(id.startsWith("shopping-"))url="guide-shopping-issues.html#"+id;if(id==="mynumber-lost")url="guide-mynumber-lost.html";if(id==="work-insurance")url="guide-work-insurance.html";item.appendChild(button(id,title,url));
     });
     const section=document.createElement("section");section.className="favorites-section section-wrap";section.id="favorites";
-    section.innerHTML='<div class="favorites-heading"><div><p class="eyebrow">YOUR SAVED GUIDES</p><h2>お気に入り <small>（<span id="favoriteCount">0</span>）</small></h2></div><p>無料で保存できます（この端末・ブラウザ内のみ）。端末変更やブラウザデータ削除で消える場合があります。</p></div><p id="favoriteEmpty">まだ保存したガイドはありません。気になる困りごとの「お気に入りに保存」を押してください。</p><ul id="favoriteItems" class="favorite-items"></ul>';
+    section.innerHTML='<div class="favorites-heading"><div><p class="eyebrow">YOUR SAVED GUIDES</p><h2>お気に入り <small>（<span id="favoriteCount">0</span>）</small></h2></div><p>無料で2件まで保存できます（この端末・ブラウザ内のみ）。端末変更やブラウザデータ削除で消える場合があります。</p></div><p id="favoriteEmpty">まだ保存したガイドはありません。気になる困りごとの「お気に入りに保存」を押してください。</p><ul id="favoriteItems" class="favorite-items"></ul>';
     document.querySelector(".site-footer")?.before(section);
     const params=new URLSearchParams(location.search),topic=params.get("topic");
     if(topic&&titles[topic]){const target=document.querySelector('[data-quick="'+CSS.escape(topic)+'"]');if(target)target.click();}
