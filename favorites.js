@@ -48,7 +48,7 @@
       const id=item.dataset.quick;
       if(!titles[id]||item.querySelector("[data-favorite-id]"))return;
       const title=titles[id];
-      let url=id.startsWith("work-")?("guide-work-issues.html#"+id):("index.html?topic="+encodeURIComponent(id));if(id.startsWith("money-"))url="guide-money-issues.html#"+id;if(id.startsWith("shopping-"))url="guide-shopping-issues.html#"+id;if(id==="mynumber-lost")url="guide-mynumber-lost.html";if(id==="work-insurance")url="guide-work-insurance.html";item.appendChild(button(id,title,url));
+      let url=id.startsWith("work-")?("guide-work-issues.html#"+id):("index.html?topic="+encodeURIComponent(id));if(id.startsWith("money-"))url="guide-money-issues.html#"+id;if(id.startsWith("shopping-"))url="guide-shopping-issues.html#"+id;if(id==="mynumber-lost")url="guide-mynumber-lost.html";if(id==="work-insurance")url="guide-work-insurance.html";const row=item.closest(".popular-row")||item;row.appendChild(button(id,title,url));
     });
     const section=document.createElement("section");section.className="favorites-section section-wrap";section.id="favorites";
     section.innerHTML='<div class="favorites-heading"><div><p class="eyebrow">YOUR SAVED GUIDES</p><h2>お気に入り <small>（<span id="favoriteCount">0</span>）</small></h2></div><p>無料で2件まで保存できます（この端末・ブラウザ内のみ）。端末変更やブラウザデータ削除で消える場合があります。</p></div><p id="favoriteEmpty">まだ保存したガイドはありません。気になる困りごとの「お気に入りに保存」を押してください。</p><ul id="favoriteItems" class="favorite-items"></ul>';
