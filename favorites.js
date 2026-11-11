@@ -4,7 +4,7 @@
   const read=()=>{try{const v=JSON.parse(localStorage.getItem(KEY)||"[]");return Array.isArray(v)?v:[]}catch(_){return[]}};
   const write=(items)=>{try{localStorage.setItem(KEY,JSON.stringify(items));return true}catch(_){return false}};
   const titles={
-    rent:"退去費用が高すぎると感じる",rentincrease:"家賃の値上げを求められた",unemployment:"失業給付を受けたい",refund:"ネット通販の商品を返品したい",resign:"仕事を辞めたい・退職手続きが知りたい",gasleak:"ガス臭い・ガス漏れの疑い",noise:"近隣の騒音に困っている",unknowncharge:"身に覚えのない請求がある",subscription:"解約したのに請求が続いている",moving:"引っ越し後の住所変更をしたい",leak:"賃貸住宅で水漏れが起きた",gasstove:"ガスコンロが点火しない"
+    rent:"退去費用が高すぎると感じる",rentincrease:"家賃の値上げを求められた",unemployment:"失業給付を受けたい",refund:"ネット通販の商品を返品したい",resign:"仕事を辞めたい・退職手続きが知りたい",gasleak:"ガス臭い・ガス漏れの疑い",noise:"近隣の騒音に困っている",unknowncharge:"身に覚えのない請求がある",subscription:"解約したのに請求が続いている",moving:"引っ越し後の住所変更をしたい",leak:"賃貸住宅で水漏れが起きた",gasstove:"ガスコンロが点火しない",cleaning:"ハウスクリーニング・害虫駆除を依頼したい"
   };
   const save=(id,title,url)=>{
     const items=read().filter(x=>x.id!==id);
@@ -53,7 +53,7 @@
   }else if(path.startsWith("guide-")){
     const h1=document.querySelector("h1"),canonical=document.querySelector('link[rel="canonical"]')?.href||location.href;
     const id=path.replace(/^guide-/,"").replace(/\.html$/,"");
-    if(h1&&id){const holder=document.createElement("div");holder.className="article-favorite";holder.appendChild(button(id,h1.textContent.trim(),canonical));h1.after(holder);}
+    if(h1&&id&&!document.querySelector("[data-favorite-id]")){const holder=document.createElement("div");holder.className="article-favorite";holder.style.margin="14px 0 22px";holder.appendChild(button(id,titles[id]||h1.textContent.trim(),canonical));h1.after(holder);}
   }
   refresh();
 })();
