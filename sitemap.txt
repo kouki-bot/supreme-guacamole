@@ -1,4 +1,6 @@
 https://kouki-bot.github.io/supreme-guacamole/
+https://kouki-bot.github.io/supreme-guacamole/privacy-policy.html
+https://kouki-bot.github.io/supreme-guacamole/contractors.html
 https://kouki-bot.github.io/supreme-guacamole/guide-rent.html
 https://kouki-bot.github.io/supreme-guacamole/guide-rentincrease.html
 https://kouki-bot.github.io/supreme-guacamole/guide-unemployment.html
@@ -11,5 +13,13 @@ https://kouki-bot.github.io/supreme-guacamole/guide-subscription.html
 https://kouki-bot.github.io/supreme-guacamole/guide-moving.html
 https://kouki-bot.github.io/supreme-guacamole/guide-leak.html
 https://kouki-bot.github.io/supreme-guacamole/guide-gasstove.html
-https://kouki-bot.github.io/supreme-guacamole/privacy-policy.html
-https://kouki-bot.github.io/supreme-guacamole/contractors.html
+https://kouki-bot.github.io/supreme-guacamole/guide-electric.html
+https://kouki-bot.github.io/supreme-guacamole/guide-cleaning.html
+https://kouki-bot.github.io/supreme-guacamole/guide-security.html
+https://kouki-bot.github.io/supreme-guacamole/guide-waste.html
+https://kouki-bot.github.io/supreme-guacamole/guide-moving-service.html
+https://kouki-bot.github.io/supreme-guacamole/guide-work-issues.html
+https://kouki-bot.github.io/supreme-guacamole/guide-money-issues.html
+https://kouki-bot.github.io/supreme-guacamole/guide-shopping-issues.html
+https://kouki-bot.github.io/supreme-guacamole/guide-mynumber-lost.html
+https://kouki-bot.github.io/supreme-guacamole/guide-work-insurance.html
