@@ -378,7 +378,7 @@ document.querySelectorAll(".category-card").forEach(btn=>btn.addEventListener("c
 $("#showAllTopics").addEventListener("click",()=>{
   document.querySelectorAll(".popular-item").forEach(item=>{item.hidden=false;});
 });
-document.querySelectorAll("[data-quick]").forEach(btn=>btn.addEventListener("click",()=>{if(btn.dataset.quick==="electric"){window.location.href="guide-electric.html";return;}if(btn.dataset.quick==="cleaning"){window.location.href="guide-cleaning.html";return;}if(btn.dataset.quick==="security"){window.location.href="guide-security.html";return;}if(btn.dataset.quick==="waste"){window.location.href="guide-waste.html";return;}if(btn.dataset.quick==="movingservice"){window.location.href="guide-moving-service.html";return;}openGuide(btn.dataset.quick);}));
+document.querySelectorAll("[data-quick]").forEach(btn=>btn.addEventListener("click",()=>{const id=btn.dataset.quick;if(id.startsWith("work-")){window.location.href="guide-work-issues.html#"+id;return;}if(id==="electric"){window.location.href="guide-electric.html";return;}if(id==="cleaning"){window.location.href="guide-cleaning.html";return;}if(id==="security"){window.location.href="guide-security.html";return;}if(id==="waste"){window.location.href="guide-waste.html";return;}if(id==="movingservice"){window.location.href="guide-moving-service.html";return;}openGuide(id);}));
 $("#languageSelect").addEventListener("change",e=>{
   currentLang=e.target.value; localize();
   if(currentGuide){
